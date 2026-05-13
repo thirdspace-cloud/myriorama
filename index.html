@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Georgia, serif;
+  padding: 2rem;
+}
+
+/* Composition area */
+#poem-board {
+  min-height: 220px;
+  border: 2px dashed #666;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  background: #fffdf8;
+  border-radius: 12px;
+}
+
+/* Status */
+#status {
+  margin-bottom: 1rem;
+  font-style: italic;
+  color: #555;
+}
+
+/* Buttons */
+button {
+  margin-right: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: #f3f0e8;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #eae6dc;
+}
+
+/* Tile bank */
+#tile-bank {
+  border-top: 2px solid #ccc;
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Tiles */
+.tile {
+  padding: 0.75rem 1rem;
+  background: #fdfaf3;
+  border: 1px solid #d8d2c4;
+  border-radius: 8px;
+  cursor: grab;
+  max-width: 220px;
+  white-space: pre-line;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+}
+
+.tile:hover {
+  background: #f6f1e6;
+  transform: translateY(-2px);
+}
+
+.tile:active {
+  cursor: grabbing;
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.tile.in-poem {
+  background: #e8f3ec;
+  border: 1px solid #b7d3c2;
+}
+</style>
+</head>
+<body>
+
+<h1>Create your own third space</h1>
+
+<h3>Your myriorama</h3>
+
+<div id="poem-board"></div>
+
+<div id="status">0 / 6 lines</div>
+
+<button onclick="resetPoem()">Reset myriorama</button>
+<button onclick="exportPoem()">Export my myriorama</button>
+
+<h3>The bank of words</h3>
+
+<div id="tile-bank">
+
+  <div class="tile" draggable="true">
+it is important i don’t work 
+upon the train
+but walk in the rain of
+four waterfalls
+  </div>
+
+  <div class="tile" draggable="true">
+if you’re in a restaurant or a bar
+or maybe one of those places
+you consider a park
+  </div>
+
+  <div class="tile" draggable="true">
+listen to the sound behind the noise
+and you may find the space
+is there
+  </div>
+
+  <div class="tile" draggable="true">
+pause that inner monologue
+believe it could be good
+allow space for something now 
+and open up another wow
+  </div>
+
+  <div class="tile" draggable="true">
+a mutual space of low-key gentleness
+is the rhythm of the day
+worry-less wandering 
+can lead another way
+  </div>
+
+  <div class="tile" draggable="true">
+welsh blacks upon my ceiling
+is a third space where
+i spent my days 
+freeing bees from my hair
+  </div>
+
+  <div class="tile" draggable="true">
+be present camaraderie 
+through uncertain tapestries
+relinquish all responsibility
+to carve then breach bee boundary
+  </div>
+
+  <div class="tile" draggable="true">
+then there’s the third space
+a kind of dreamy place
+a castle in the sand
+a micro-adventure that doesn’t have to be 
+so big or grand
+  </div>
+
+  <div class="tile" draggable="true">
+troll hunting in devon
+refusing to leave 
+you pause
+to think it honey given
+  </div>
+
+  <div class="tile" draggable="true">
+grief is honey with feathers
+marazion caravan
+fly free forever
+  </div>
+
+  <div class="tile" draggable="true">
+a dose of insect bee balm
+brings me home
+and takes me
+away 
+  </div>
+
+  <div class="tile" draggable="true">
+albany road honey coats the note
+sticky sweet 
+and lingering
+like smoke 
+  </div>
+
+  <div class="tile" draggable="true">
+mead-made beads
+of those who’ve gone
+to other lands 
+  </div>
+
+  <div class="tile" draggable="true">
+going google map-less 
+can leave gaps
+for interludes of 
+chance
+  </div>
+
+  <div class="tile" draggable="true">
+i like swimming
+i like lying on the beach
+i like hanging out with friends
+and drinking cocktails
+  </div>
+
+  <div class="tile" draggable="true">
+if a bee sting is something
+and a heartbeat is nothing
+how do we colour in
+the spaces
+  </div>
+
+</div>
+
+<script>
+const board = document.getElementById("poem-board");
+const bank = document.getElementById("tile-bank");
+const status = document.getElementById("status");
+
+let dragged = null;
+const MAX_TILES = 6;
+
+/* Status */
+function updateStatus() {
+  const count = board.querySelectorAll(".tile").length;
+
+  if (count >= MAX_TILES) {
+    status.textContent = "6 / 6 verses — Your myriorama is complete ✓";
+  } else {
+    status.textContent = count + " / 6 verses";
+  }
+}
+
+/* Drag */
+document.querySelectorAll(".tile").forEach(tile => {
+
+  tile.addEventListener("dragstart", () => {
+    dragged = tile;
+    tile.style.opacity = "0.5";
+  });
+
+  tile.addEventListener("dragend", () => {
+    tile.style.opacity = "1";
+  });
+
+});
+
+/* Drop behaviour */
+[board, bank].forEach(area => {
+
+  area.addEventListener("dragover", e => e.preventDefault());
+
+  area.addEventListener("drop", e => {
+    e.preventDefault();
+
+    const count = board.querySelectorAll(".tile").length;
+
+    // prevent going over 6
+    if (area === board &&
+        !dragged.classList.contains("in-poem") &&
+        count >= MAX_TILES) {
+      return;
+    }
+
+    if (area === board) {
+      if (!dragged.classList.contains("in-poem")) {
+        board.appendChild(dragged);
+      } else {
+        const after = getDragAfterElement(board, e.clientY);
+
+        if (!after) {
+          board.appendChild(dragged);
+        } else {
+          board.insertBefore(dragged, after);
+        }
+      }
+      dragged.classList.add("in-poem");
+    } else {
+      bank.appendChild(dragged);
+      dragged.classList.remove("in-poem");
+    }
+
+    updateStatus();
+  });
+
+});
+
+/* Reordering helper */
+function getDragAfterElement(container, y) {
+  const elements = [...container.querySelectorAll(".tile")];
+
+  return elements.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+
+    if (offset < 0 && offset > closest.offset) {
+      return { offset: offset, element: child };
+    } else {
+      return closest;
+    }
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+/* Reset */
+function resetPoem() {
+  const tiles = board.querySelectorAll(".tile");
+  tiles.forEach(tile => {
+    bank.appendChild(tile);
+    tile.classList.remove("in-poem");
+  });
+  updateStatus();
+}
+
+/* Export */
+function exportPoem() {
+  const tiles = board.querySelectorAll(".tile");
+  const text = [...tiles].map(t => t.textContent.trim()).join("\n\n");
+
+  navigator.clipboard.writeText(text).then(() => {
+    alert("Your myriorama has been copied!");
+  }).catch(() => {
+    alert("Copy failed — here it is:\n\n" + text);
+  });
+}
+
+updateStatus();
+</script>
+
+</body>
+</html>
