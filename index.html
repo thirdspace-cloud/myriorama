@@ -1,10 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>Create your myriorama</title>
+
 <style>
 body {
   font-family: Georgia, serif;
   padding: 2rem;
+}
+
+/* INTRO SCREEN */
+#intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fffdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.intro-content {
+  max-width: 520px;
+  padding: 2rem;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.intro-content p {
+  margin-bottom: 1rem;
+}
+
+.intro-content .consent {
+  font-size: 0.9rem;
+  color: #666;
 }
 
 /* Composition area */
@@ -81,11 +116,43 @@ button:hover {
 }
 </style>
 </head>
+
 <body>
 
-<h1>Create your own third space</h1>
+<!-- INTRO SCREEN -->
+<div id="intro-screen">
+  <div class="intro-content">
+    <h2>Create your own third space</h2>
 
-<h3>Your myriorama</h3>
+    <p>
+      This is a small interactive exercise called a <em>myriorama</em>. It was developed as part of research exploring the potential of ‘third spaces’ – spaces outside home and work – to support wellbeing, connection, and productive mental rest. To find out more about the research, email <a href="mailto:karen.gray@bristol.ac.uk">Karen Gray</a>.
+    </p>
+
+    <p>
+      On the next page you will find a series of fragments drawn from interviews and reflections with co-researchers. Choose and arrange up to six fragments to create your own piece.<br>
+      There is no right order — follow intuition, memory, or feeling.
+    </p>
+
+    <p>
+      You can drag tiles, or click them to move them into your composition.
+    </p>
+
+<p>
+This myriorama and the concept for it was created by artist <a href=mailto:shortladywithdarkhair@gmail.com">Kate Green</a>
+</p>
+
+    <p class="consent">
+      By continuing, you agree to take part in this creative activity.
+      (No data is stored.) 
+    </p>
+
+    <button onclick="startExperience()">Begin</button>
+  </div>
+</div>
+
+<h1>Create your own third space myriorama</h1>
+
+<h3>Your composition</h3>
 
 <div id="poem-board"></div>
 
@@ -98,114 +165,114 @@ button:hover {
 
 <div id="tile-bank">
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 it is important i don’t work 
 upon the train
 but walk in the rain of
 four waterfalls
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 if you’re in a restaurant or a bar
 or maybe one of those places
 you consider a park
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 listen to the sound behind the noise
 and you may find the space
 is there
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 pause that inner monologue
 believe it could be good
 allow space for something now 
 and open up another wow
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 a mutual space of low-key gentleness
 is the rhythm of the day
 worry-less wandering 
 can lead another way
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 welsh blacks upon my ceiling
 is a third space where
 i spent my days 
 freeing bees from my hair
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 be present camaraderie 
 through uncertain tapestries
 relinquish all responsibility
 to carve then breach bee boundary
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 then there’s the third space
 a kind of dreamy place
 a castle in the sand
 a micro-adventure that doesn’t have to be 
 so big or grand
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 troll hunting in devon
 refusing to leave 
 you pause
 to think it honey given
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 grief is honey with feathers
 marazion caravan
 fly free forever
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 a dose of insect bee balm
 brings me home
 and takes me
 away 
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 albany road honey coats the note
 sticky sweet 
 and lingering
 like smoke 
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 mead-made beads
 of those who’ve gone
 to other lands 
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 going google map-less 
 can leave gaps
 for interludes of 
 chance
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 i like swimming
 i like lying on the beach
 i like hanging out with friends
 and drinking cocktails
-  </div>
+</div>
 
-  <div class="tile" draggable="true">
+<div class="tile" draggable="true">
 if a bee sting is something
 and a heartbeat is nothing
 how do we colour in
 the spaces
-  </div>
+</div>
 
 </div>
 
@@ -216,6 +283,12 @@ const status = document.getElementById("status");
 
 let dragged = null;
 const MAX_TILES = 6;
+
+/* INTRO */
+function startExperience() {
+  document.getElementById("intro-screen").style.display = "none";
+  localStorage.setItem("seenIntro", "true");
+}
 
 /* Status */
 function updateStatus() {
@@ -240,6 +313,21 @@ document.querySelectorAll(".tile").forEach(tile => {
     tile.style.opacity = "1";
   });
 
+  /* Click-to-add */
+  tile.addEventListener("click", () => {
+    const count = board.querySelectorAll(".tile").length;
+
+    if (!tile.classList.contains("in-poem") && count < MAX_TILES) {
+      board.appendChild(tile);
+      tile.classList.add("in-poem");
+    } else if (tile.classList.contains("in-poem")) {
+      bank.appendChild(tile);
+      tile.classList.remove("in-poem");
+    }
+
+    updateStatus();
+  });
+
 });
 
 /* Drop behaviour */
@@ -252,7 +340,6 @@ document.querySelectorAll(".tile").forEach(tile => {
 
     const count = board.querySelectorAll(".tile").length;
 
-    // prevent going over 6
     if (area === board &&
         !dragged.classList.contains("in-poem") &&
         count >= MAX_TILES) {
@@ -260,17 +347,7 @@ document.querySelectorAll(".tile").forEach(tile => {
     }
 
     if (area === board) {
-      if (!dragged.classList.contains("in-poem")) {
-        board.appendChild(dragged);
-      } else {
-        const after = getDragAfterElement(board, e.clientY);
-
-        if (!after) {
-          board.appendChild(dragged);
-        } else {
-          board.insertBefore(dragged, after);
-        }
-      }
+      board.appendChild(dragged);
       dragged.classList.add("in-poem");
     } else {
       bank.appendChild(dragged);
@@ -281,22 +358,6 @@ document.querySelectorAll(".tile").forEach(tile => {
   });
 
 });
-
-/* Reordering helper */
-function getDragAfterElement(container, y) {
-  const elements = [...container.querySelectorAll(".tile")];
-
-  return elements.reduce((closest, child) => {
-    const box = child.getBoundingClientRect();
-    const offset = y - box.top - box.height / 2;
-
-    if (offset < 0 && offset > closest.offset) {
-      return { offset: offset, element: child };
-    } else {
-      return closest;
-    }
-  }, { offset: Number.NEGATIVE_INFINITY }).element;
-}
 
 /* Reset */
 function resetPoem() {
@@ -311,16 +372,31 @@ function resetPoem() {
 /* Export */
 function exportPoem() {
   const tiles = board.querySelectorAll(".tile");
-  const text = [...tiles].map(t => t.textContent.trim()).join("\n\n");
+
+  if (tiles.length === 0) {
+    alert("Your myriorama is empty!");
+    return;
+  }
+
+  const text = [...tiles]
+    .map((t, i) => `${i + 1}. ${t.textContent.trim()}`)
+    .join("\n\n");
 
   navigator.clipboard.writeText(text).then(() => {
-    alert("Your myriorama has been copied!");
+    alert("Your myriorama has been copied ✨\n\n" + text);
   }).catch(() => {
     alert("Copy failed — here it is:\n\n" + text);
   });
 }
 
-updateStatus();
+/* On load */
+window.onload = function() {
+  updateStatus();
+
+  if (localStorage.getItem("seenIntro") === "true") {
+    document.getElementById("intro-screen").style.display = "none";
+  }
+};
 </script>
 
 </body>
