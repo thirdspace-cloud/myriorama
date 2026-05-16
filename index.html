@@ -338,7 +338,6 @@ const MAX_TILES = 6;
 /* INTRO */
 function startExperience() {
   document.getElementById("intro-screen").style.display = "none";
-  localStorage.setItem("seenIntro", "true");
 }
 
 /* Status */
@@ -444,9 +443,6 @@ function exportPoem() {
 window.onload = function() {
   updateStatus();
 
-  if (localStorage.getItem("seenIntro") === "true") {
-    document.getElementById("intro-screen").style.display = "none";
-  }
 };
 </script>
 
