@@ -403,12 +403,19 @@ document.querySelectorAll(".tile").forEach(tile => {
       return;
     }
 
-    if (area === board) {
-      board.appendChild(dragged);
-      dragged.classList.add("in-poem");
-    } else {
-      bank.appendChild(dragged);
-      dragged.classList.remove("in-poem");
+
+if (area === board) {
+  board.appendChild(dragged);
+  dragged.classList.add("in-poem");
+
+  dragged.classList.add("snap");
+  setTimeout(() => {
+    dragged.classList.remove("snap");
+  }, 150);
+
+} else {
+  bank.appendChild(dragged);
+  dragged.classList.remove("in-poem");
     }
 
     updateStatus();
