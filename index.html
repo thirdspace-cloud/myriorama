@@ -399,9 +399,9 @@ function exportPoem() {
     .join("\n\n");
 
   navigator.clipboard.writeText(text).then(() => {
-    alert("Your myriorama has been copied ✨\n\n" + text);
+    alert("Copied!");
   }).catch(() => {
-    alert("Copy failed — here it is:\n\n" + text);
+    alert(text);
   });
 }
 
