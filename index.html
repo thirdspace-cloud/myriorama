@@ -80,13 +80,14 @@ body {
 /* Composition area */
 #poem-board {
   min-height: 220px;
-  border: 2px dashed #666;
   padding: 1rem;
   margin-bottom: 1rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  background: #fffdf8;
+  gap: 0;
+
+  background: #fdfaf3;
+  border: 1px solid #d8d2c4;
   border-radius: 12px;
 }
 
@@ -150,6 +151,14 @@ button:hover {
   border: 1px solid #b7d3c2;
 }
 
+/* Tiles merge when inside composition */
+#poem-board .tile {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  margin: 0;
+}
+  
 /* Snap animation */
 .tile.snap {
   transform: scale(1.05);
@@ -166,6 +175,11 @@ button:hover {
   margin-bottom: 0.5rem;
   display: block;
 }
+
+#poem-board .tile img {
+  border-radius: 0;
+}
+ 
 </style>
 </head>
 
