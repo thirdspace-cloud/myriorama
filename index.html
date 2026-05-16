@@ -81,6 +81,7 @@ body {
 #poem-board {
   min-height: 220px;
   padding: 0;
+  font-size: 0;
   margin-bottom: 1rem;
   display: flex;
   flex-wrap: wrap;
@@ -158,6 +159,8 @@ button:hover {
   border-radius: 0;
   margin: 0;
   padding: 0;
+  flex: 1 1 auto; 
+  font-size: 1rem; 
 }
   
 /* Snap animation */
@@ -180,6 +183,10 @@ button:hover {
 #poem-board .tile img {
   border-radius: 0;
   margin-bottom: 0;
+
+  /* ✅ KEY FIX */
+  width: calc(100% + 1px);
+  margin-left: -0.5px;
 }
  
 </style>
